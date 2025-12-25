@@ -54,12 +54,16 @@
         },
         "serve": {
           "builder": "@angular/build:dev-server",
+          "options": {
+            "proxyConfig": "proxy.conf.json"
+          },
           "configurations": {
             "production": {
               "buildTarget": "cegoapp-ui:build:production"
             },
             "development": {
-              "buildTarget": "cegoapp-ui:build:development"
+              "buildTarget": "cegoapp-ui:build:development",
+              "proxyConfig": "proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"

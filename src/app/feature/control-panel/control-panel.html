@@ -1,0 +1,19 @@
+<div class="control-panel-container">
+  <section class="hero">
+    <div>
+      <h2>Gerenciador de Cadastros</h2>
+      <p>Acesse de um só lugar todos os módulos de cadastro e mantenha as informações sempre organizadas.</p>
+    </div>
+  </section>
+
+  <section class="panel-grid">
+    <article class="panel-card" *ngFor="let link of panelLinks">
+      <div class="icon" aria-hidden="true">{{ link.icon }}</div>
+      <div class="panel-content">
+        <h3>{{ link.title }}</h3>
+        <p>{{ link.description }}</p>
+      </div>
+      <a class="panel-link" routerLink="{{ link.route }}">Acessar</a>
+    </article>
+  </section>
+</div>

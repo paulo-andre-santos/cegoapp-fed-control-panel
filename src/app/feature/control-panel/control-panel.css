@@ -1,0 +1,117 @@
+/* Painel inspirado na identidade das outras telas */
+.control-panel-container {
+  max-width: 1100px;
+  margin: 2rem auto;
+  padding: 0 1.5rem 2rem;
+  font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+  color: #1f2933;
+}
+
+.hero {
+  background: linear-gradient(130deg, #0c1f3c, #0f6ca7);
+  border-radius: 18px;
+  padding: 2.5rem;
+  color: #fff;
+  box-shadow: 0 15px 40px rgba(10, 109, 217, 0.25);
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.85rem;
+  margin-bottom: 0.35rem;
+  opacity: 0.8;
+}
+
+.hero h2 {
+  font-size: 2rem;
+  margin: 0 0 0.5rem;
+}
+
+.hero p {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.panel-grid {
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.25rem;
+}
+
+.panel-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border: 1px solid #e5e8ec;
+  box-shadow: 0 12px 30px rgba(15, 19, 36, 0.07);
+}
+
+.panel-card .icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  background: #0c1f3c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+.panel-content h3 {
+  margin: 0 0 0.35rem;
+  font-size: 1.15rem;
+}
+
+.panel-content p {
+  margin: 0;
+  color: #5d6a76;
+}
+
+.panel-link {
+  margin-left: auto;
+  text-decoration: none;
+  font-weight: 600;
+  color: #0a6dd9;
+  border: 1px solid rgba(10, 109, 217, 0.4);
+  border-radius: 999px;
+  padding: 0.5rem 1rem;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.panel-link:hover {
+  background: #0a6dd9;
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 2rem;
+  }
+
+  .hero h2 {
+    font-size: 1.5rem;
+  }
+
+  .hero-actions {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .panel-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .panel-link {
+    margin-left: 0;
+  }
+}

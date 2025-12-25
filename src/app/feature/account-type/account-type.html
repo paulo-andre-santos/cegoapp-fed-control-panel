@@ -1,1 +1,76 @@
-<p>account-type works!</p>
+<div class="account-type-container">
+  <a routerLink="/painel" class="back-link">
+    <span aria-hidden="true">←</span>
+    Voltar ao painel
+  </a>
+
+  <section class="page-hero">
+    <div>
+      <h1>Tipos de Conta</h1>
+      <p>Organize os tipos que classificam suas contas e mantenha o catálogo coerente.</p>
+    </div>
+    <div class="hero-badge">
+      <span>Catálogo mestre</span>
+    </div>
+  </section>
+  <div class="content">
+    <div class="form-card">
+      <h3>{{ editingId ? 'Editar Tipo de Conta' : 'Novo Tipo de Conta' }}</h3>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div>
+          <label>Código:</label>
+          <input formControlName="codTipConta" placeholder="Código" [readonly]="!!editingId" maxlength="1" />
+        </div>
+        <div>
+          <label>Descrição:</label>
+          <input formControlName="descr" placeholder="Descrição" maxlength="30" required />
+        </div>
+        <div>
+          <label>Ativo:</label>
+          <label class="toggle">
+            <input type="checkbox" formControlName="ativo" />
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="form-actions">
+          <button type="submit" [disabled]="!form.valid">{{ editingId ? 'Atualizar' : 'Criar' }}</button>
+          <button type="button" (click)="resetForm()" *ngIf="editingId">Cancelar</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="table-card">
+      <h3>Lista de Tipos de Conta</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Código</th>
+            <th>Descrição</th>
+            <th>Ativo</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngIf="accountTypes().length === 0">
+            <td colspan="4">Carregando tipos de conta ou nenhum encontrado...</td>
+          </tr>
+          <tr *ngFor="let type of accountTypes()">
+            <td>{{ type.codTipConta }}</td>
+            <td>{{ type.descr }}</td>
+            <td>{{ type.ativo === 'S' ? 'Sim' : 'Não' }}</td>
+            <td>
+              <div class="table-actions">
+                <button type="button" class="table-action-btn" (click)="edit(type)" title="Editar">
+                  <span aria-hidden="true">✏️</span>
+                </button>
+                <button type="button" class="table-action-btn" (click)="delete(type.codTipConta, type.descr)" title="Excluir">
+                  <span aria-hidden="true">🗑️</span>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

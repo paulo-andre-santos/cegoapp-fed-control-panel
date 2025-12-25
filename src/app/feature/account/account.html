@@ -1,0 +1,105 @@
+<div class="account-container">
+  <a routerLink="/painel" class="back-link">
+    <span aria-hidden="true">←</span>
+    Voltar ao painel
+  </a>
+
+  <section class="page-hero">
+    <div>
+      <h1>Contas</h1>
+      <p>Gerencie contas, tipos vinculados e saldos iniciais com clareza profissional.</p>
+    </div>
+    <div class="hero-badge">
+      <span>Cadastro essencial</span>
+    </div>
+  </section>
+  <div class="content">
+    <div class="form-card">
+      <h3>{{ editingId ? 'Editar Conta' : 'Nova Conta' }}</h3>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div>
+          <label>Código:</label>
+          <input formControlName="codConta" placeholder="Gerado automaticamente" readonly />
+        </div>
+        <div>
+          <label>Descrição:</label>
+          <input formControlName="descr" placeholder="Descrição" maxlength="80" required />
+        </div>
+        <div>
+          <label>Tipo:</label>
+          <select formControlName="tipo" [disabled]="accountTypes().length === 0">
+            <option value="" disabled>Selecione um tipo</option>
+            <option *ngFor="let type of accountTypes()" [value]="type.codTipConta">
+              {{ type.codTipConta }} - {{ type.descr }}
+            </option>
+          </select>
+          <small *ngIf="accountTypes().length === 0">Nenhum tipo de conta disponível.</small>
+        </div>
+        <div>
+          <label>Saldo Inicial:</label>
+          <input type="text" formControlName="saldoInicial" inputmode="numeric" placeholder="Ex: 1.234,56" (input)="onSaldoInput($event)" />
+        </div>
+        <div>
+          <label>Data Saldo Inicial:</label>
+          <input type="date" formControlName="dtSaldoInicial" />
+        </div>
+        <div>
+          <label>Ativo:</label>
+          <label class="toggle">
+            <input type="checkbox" formControlName="ativo" />
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="form-actions">
+          <button type="submit" [disabled]="!form.valid || submitting()">
+            {{ submitting() ? 'Salvando...' : (editingId ? 'Atualizar' : 'Criar') }}
+          </button>
+          <button type="button" (click)="resetForm()" *ngIf="editingId">Cancelar</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="table-card">
+      <h3>Lista de Contas</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Código</th>
+            <th>Descrição</th>
+            <th>Tipo</th>
+            <th>Saldo Inicial</th>
+            <th>Data Saldo Inicial</th>
+            <th>Ativo</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngIf="accounts().length === 0">
+            <td colspan="7">Carregando contas ou nenhuma encontrada...</td>
+          </tr>
+          <tr *ngFor="let account of accounts()">
+            <td>{{ account.codConta }}</td>
+            <td>{{ account.descr }}</td>
+            <td>{{ getAccountTypeLabel(account.tipo) || account.tipo }}</td>
+            <td>{{ toNumber(account.saldoInicial) | currency:'BRL':'symbol':'1.2-2' }}</td>
+            <td>{{ account.dtSaldoInicial | date:'dd/MM/yyyy' }}</td>
+            <td>{{ account.ativo === 'S' ? 'Sim' : 'Não' }}</td>
+            <td>
+              <div class="table-actions">
+                <button type="button" class="table-action-btn" (click)="edit(account)" title="Editar">
+                  <span aria-hidden="true">✏️</span>
+                </button>
+                <button type="button" class="table-action-btn" (click)="duplicate(account)" title="Duplicar">
+                  <span aria-hidden="true">⧉</span>
+                </button>
+                <button type="button" class="table-action-btn" (click)="delete(account.codConta, account.descr)" title="Excluir">
+                  <span aria-hidden="true">🗑️</span>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
